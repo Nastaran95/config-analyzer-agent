@@ -1,29 +1,46 @@
-# Apartment Analysis Agent
+# Apartment Analysis Expert
 
-This project implements an agent-based system using LangGraph to analyze apartment building data. The agent can process various queries about apartment distributions, room types, and other metrics.
+A web application that helps you analyze apartment layouts and get expert insights about construction, design, and optimization.
 
-## Features
+## What You Can Do
 
-- Analyze apartment types (2-room, 3-room, 4-room) per floor and in total
-- Calculate number of bedrooms per floor and per apartment
-- Calculate number of bathrooms per floor and per apartment
-- Calculate area (BRA) per floor and per apartment
-- Show apartment mix and percentage distribution of different apartment types
-- Calculate percentage distribution per floor and in total
+- Upload your apartment layout data in CSV format
+- Ask questions about your apartment design
+- Get instant analysis and visualizations
+- View apartment type distributions
+- See area usage per floor
+- Get expert insights about construction and design
 
-## Setup
+## How to Use
 
-1. Install the required dependencies:
+1. Install the required packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Create a `.env` file in the project root with your OpenAI API key:
+2. Create a `.env` file with your OpenAI API key:
 ```
 OPENAI_API_KEY=your_api_key_here
 ```
 
-3. Prepare your apartment data in a CSV file named `apartments.csv` with the following columns:
+3. Run the web application:
+```bash
+streamlit run app.py
+```
+
+4. Upload your apartment layout CSV file and start asking questions!
+
+## Example Questions You Can Ask
+
+- "What is the distribution of apartment types across floors?"
+- "How efficient is the area utilization in this building?"
+- "What are the key design features of this layout?"
+- "How does this layout compare to standard construction practices?"
+- "What are potential improvements for energy efficiency?"
+
+## Required CSV Format
+
+Your apartment layout CSV should include:
 - floor
 - apartment_number
 - apartment_type
@@ -31,30 +48,11 @@ OPENAI_API_KEY=your_api_key_here
 - bathrooms
 - area_bra
 
-## Usage
+## Features
 
-Run the main script:
-```bash
-python apartment_analyzer.py
-```
-
-The script includes example queries that demonstrate the agent's capabilities. You can modify the queries in the `if __name__ == "__main__":` section to analyze different aspects of your apartment data.
-
-## Example Queries
-
-- "Find all two-room, three-room, four-room apartments per floor and in total"
-- "Find the number of bedrooms per floor"
-- "Find the number of bathrooms per floor"
-- "Find the area (BRA) per Floor"
-- "Show apartment mix, i.e. percentage distribution of two-room, three-room, four-room etc"
-
-## Architecture
-
-The project uses LangGraph to create a workflow that:
-1. Analyzes the apartment data based on the query
-2. Formats the results using an LLM for better readability
-
-The main components are:
-- `ApartmentAnalyzer`: Core class that handles data analysis
-- LangGraph workflow: Manages the analysis and formatting process
-- OpenAI integration: Provides natural language formatting of results 
+- Interactive web interface
+- Real-time data analysis
+- Visual charts and graphs
+- Expert insights powered by AI
+- Chat-based interaction
+- Dark mode support 
