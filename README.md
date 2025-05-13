@@ -43,10 +43,7 @@ streamlit run app.py
 Your apartment layout CSV should include:
 - floor
 - apartment_number
-- apartment_type
-- bedrooms
-- bathrooms
-- area_bra
+
 
 ## Features
 
