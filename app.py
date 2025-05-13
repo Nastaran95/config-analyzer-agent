@@ -20,50 +20,86 @@ if 'chat_history' not in st.session_state:
 if 'analyzer' not in st.session_state:
     st.session_state.analyzer = None
 
-# Custom CSS for better dark mode support
+# Custom CSS for better dark/light mode support
 st.markdown("""
 <style>
+    /* Base styles */
     .main {
         padding: 2rem;
     }
+    
+    /* Theme-aware colors */
+    :root {
+        --bg-color: var(--background-color);
+        --text-color: var(--text-color);
+        --border-color: var(--border-color);
+        --primary-color: #0078D4;
+        --primary-hover: #106EBE;
+        --secondary-color: #009688;
+        --secondary-hover: #00796B;
+    }
+    
     /* Chat message styling */
     .stChatMessage {
         padding: 1rem;
         border-radius: 0.5rem;
         margin-bottom: 1rem;
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background-color: color-mix(in srgb, var(--bg-color) 95%, var(--text-color));
+        border: 1px solid color-mix(in srgb, var(--bg-color) 80%, var(--text-color));
     }
+    
     /* User message styling */
     .stChatMessage[data-testid="stChatMessage"] {
-        background-color: rgba(0, 120, 212, 0.1);
-        border: 1px solid rgba(0, 120, 212, 0.2);
+        background-color: color-mix(in srgb, var(--primary-color) 10%, var(--bg-color));
+        border: 1px solid color-mix(in srgb, var(--primary-color) 20%, var(--bg-color));
     }
+    
     /* Assistant message styling */
     .stChatMessage[data-testid="stChatMessage"]:has(div[data-testid="chatAvatarIcon"]) {
-        background-color: rgba(0, 150, 136, 0.1);
-        border: 1px solid rgba(0, 150, 136, 0.2);
+        background-color: color-mix(in srgb, var(--secondary-color) 10%, var(--bg-color));
+        border: 1px solid color-mix(in srgb, var(--secondary-color) 20%, var(--bg-color));
     }
+    
     /* Button styling */
     .stButton>button {
         width: 100%;
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: white;
+        background-color: color-mix(in srgb, var(--bg-color) 90%, var(--text-color));
+        border: 1px solid color-mix(in srgb, var(--bg-color) 80%, var(--text-color));
+        color: var(--text-color);
+        transition: all 0.3s ease;
     }
+    
     .stButton>button:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: color-mix(in srgb, var(--bg-color) 80%, var(--text-color));
+        border: 1px solid color-mix(in srgb, var(--bg-color) 70%, var(--text-color));
     }
+    
     /* Input box styling */
     .stChatInput {
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background-color: color-mix(in srgb, var(--bg-color) 90%, var(--text-color));
+        border: 1px solid color-mix(in srgb, var(--bg-color) 80%, var(--text-color));
         border-radius: 0.5rem;
     }
+    
     /* Text color for better visibility */
     .stMarkdown, .stText {
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--text-color);
+    }
+    
+    /* Plot styling */
+    .js-plotly-plot {
+        background-color: var(--bg-color) !important;
+    }
+    
+    /* Dataframe styling */
+    .stDataFrame {
+        background-color: var(--bg-color);
+    }
+    
+    /* Info box styling */
+    .stAlert {
+        background-color: color-mix(in srgb, var(--bg-color) 95%, var(--text-color));
+        border: 1px solid color-mix(in srgb, var(--bg-color) 80%, var(--text-color));
     }
 </style>
 """, unsafe_allow_html=True)
@@ -82,6 +118,7 @@ with st.sidebar:
     
     st.header("💡 Example Queries")
     example_queries = [
+        "Summary report",
         "What is the distribution of apartment types across floors?",
         "How efficient is the area utilization in this building?",
         "What are the key design features of this layout?",
