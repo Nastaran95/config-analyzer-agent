@@ -4,6 +4,7 @@ from apartment_analyzer import ApartmentAnalyzer
 from apartment_agent import ApartmentExpertAgent 
 import plotly.express as px
 import plotly.graph_objects as go
+import datetime as dt
 
 # Set page config
 st.set_page_config(
@@ -130,7 +131,16 @@ with st.sidebar:
             st.session_state.chat_history.append({"role": "user", "content": query})
             if st.session_state.analyzer:
                 analysis_results = st.session_state.analyzer.analyze_apartments(query)
+
+                print("Buttom:")
+                print(query)
+                print("--------------------------------" , dt.datetime.now())
+
                 response = st.session_state.agent.process_query(query, analysis_results)
+                print("RESPONSE:")
+                print(response)
+                print("--------------------------------" , dt.datetime.now())
+
                 st.session_state.chat_history.append({"role": "assistant", "content": response})
                 st.rerun()
 
@@ -170,17 +180,15 @@ if uploaded_file is not None:
                 analysis_results = st.session_state.analyzer.analyze_apartments(prompt)
                 
 
+                print("PROMPT:")
                 print(prompt)
-                print(st.session_state.chat_history)
-                print(analysis_results)
-                print("hereeee")
-                print("--------------------------------")
+                print("--------------------------------" , dt.datetime.now())
 
                 # Get agent response
                 response = st.session_state.agent.process_query(prompt, analysis_results)
                 print("RESPONSE:")
                 print(response)
-                print("--------------------------------")
+                print("--------------------------------" , dt.datetime.now())
 
                 # Add assistant response to chat history
                 st.session_state.chat_history.append({"role": "assistant", "content": response})
